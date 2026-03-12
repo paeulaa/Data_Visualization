@@ -1,9 +1,15 @@
 import pandas as pd
 import sqlite3
 import json
+from pathlib import Path
+
+# Resolve paths from this script directory
+BASE_DIR = Path(__file__).resolve().parent
+DB_PATH = BASE_DIR.parent / 'db' / 'data.db'
+OUTPUT_PATH = BASE_DIR.parent.parent / 'client' / 'public' / 'data' / 'hierarchy_data.json'
 
 # Connect to database
-conn = sqlite3.connect('../db/data.db')
+conn = sqlite3.connect(DB_PATH)
 # Visit all data in students
 query = "SELECT * FROM students"
 data = pd.read_sql_query(query, conn)
@@ -49,7 +55,8 @@ for q_col in columns:
 # output json file
 json_data = json.dumps(root, indent=4)
 
-with open('hierarchy_data.json', 'w') as f:
+OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+with open(OUTPUT_PATH, 'w', encoding='utf-8') as f:
     f.write(json_data)
 
-print("Successfully generate JSON file.")
+print(f"Successfully generated JSON file at: {OUTPUT_PATH}")

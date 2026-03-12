@@ -13,7 +13,7 @@ function App() {
 
   //接取api -- fetch data
   useEffect(() => {
-    fetch('http://localhost:5001/api/hierarchy')
+    fetch('/data/hierarchy_data.json')
       .then(response => response.json())
       .then(data => setHierarchyData(data))
       .catch(error => console.error('Error fetching data:', error));
