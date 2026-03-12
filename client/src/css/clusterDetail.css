@@ -1,16 +1,18 @@
 .canvas{
     width: 100%;
-    height: 100vh;  /* 將高度調整為適當大小 */
+    min-height: calc(100vh - 120px);
     /* display: flex;
     flex-direction: row; */
     position: relative;
     align-items: center; /* 將內容垂直居中 */
-    padding-left: 50px;  /* 增加左側邊距來讓圓圈更居中 */
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 #cluster-chart {
     /* border: 1px solid red; 幫助查看圖表的位置 */
     width: 100%;
-    height: 1000px;
+    min-height: 700px;
 }
 #cluster-description{
     position: relative;  /* 絕對定位以精確調整位置 */
@@ -21,5 +23,16 @@
     line-height: 1.5;  /* 行高讓文字更好閱讀 */
     margin-left: 20px; /* 增加左側間距，讓文字不至於太緊貼 */
     border: 2px solid aqua;
+}
+
+@media (max-width: 768px) {
+    .canvas {
+        min-height: calc(100vh - 150px);
+        padding: 0.75rem;
+    }
+
+    #cluster-chart {
+        min-height: 560px;
+    }
 }
   

@@ -48,20 +48,24 @@ function ClusterDetails({ hierarchyData, selectedDegree, selectedMajor, selected
         console.log('Drawing Chart for:', clusterData);
 
         if (!clusterData) return;
+        const chartContainer = document.getElementById('cluster-chart');
+        const containerWidth = chartContainer?.clientWidth || window.innerWidth || 1200;
+        const isMobile = containerWidth < 768;
 
         // d3.js 繪圖
-        const width = 2000;
-        const height = 1000;
-        const radiusStep = 70;
+        const width = Math.max(containerWidth, 360);
+        const height = isMobile ? 760 : 1000;
+        const radiusStep = isMobile ? 48 : 70;
 
         const svg = d3.select("#cluster-chart")
             .append("svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
-            .attr("width", width)
-            .attr("height", height);
+            .attr("preserveAspectRatio", "xMidYMin meet")
+            .style("width", "100%")
+            .style("height", "auto");
 
-        const paddingX = 200;
-        const paddingY = 70;
+        const paddingX = isMobile ? 0 : 120;
+        const paddingY = isMobile ? 10 : 70;
         // 計算中心位置
         const offsetX = width / 2 - paddingX;
         const offsetY = height / 2 - paddingY;

@@ -7,6 +7,7 @@ function MainPage({ hierarchyData, selectedDegree, selectedMajor, selectedGender
     const navigate = useNavigate();
 
     const drawChart = useCallback((data) => {
+        const chartContainer = document.getElementById("chart");
         d3.select("#chart").selectAll("*").remove();
 
         if (!data || !data.children) return;
@@ -27,20 +28,30 @@ function MainPage({ hierarchyData, selectedDegree, selectedMajor, selectedGender
             })();
         }
 
-        const width = 1800;
-        const height = 2500;
-        const radiusStep = 25;
-        const clustersPerRow = 5;
+        const containerWidth = chartContainer?.clientWidth || window.innerWidth || 1200;
+        const isMobile = containerWidth < 768;
+        const clustersPerRow = isMobile ? 2 : 5;
+        const radiusStep = isMobile ? 18 : 25;
+        const horizontalPadding = isMobile ? 90 : 150;
+        const verticalSpacing = isMobile ? 300 : 400;
+        const rowCount = Math.max(1, Math.ceil(data.children.length / clustersPerRow));
+        const width = Math.max(containerWidth, 360);
+        const height = Math.max(700, rowCount * verticalSpacing + 250);
+        const horizontalSpacing = clustersPerRow > 1
+            ? Math.max(200, (width - horizontalPadding * 2) / (clustersPerRow - 1))
+            : 0;
 
         const svg = d3.select("#chart")
             .append("svg")
-            .attr("width", width)
-            .attr("height", height);
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("preserveAspectRatio", "xMidYMin meet")
+            .style("width", "100%")
+            .style("height", "auto");
 
-        const horizontalSpacing = 350;  // 左右的間距
-        const verticalSpacing = 400;    // 上下的間距
         data.children.forEach((clusterData, index) => {
-            const offsetX = 150 + (index % clustersPerRow) * horizontalSpacing;
+            const offsetX = clustersPerRow === 1
+                ? width / 2
+                : horizontalPadding + (index % clustersPerRow) * horizontalSpacing;
             const offsetY = 200 + Math.floor(index / clustersPerRow) * verticalSpacing;
 
             // 添加大背景圓

@@ -4,20 +4,100 @@
     position: sticky;
     top: 0;
     left: 0;
-    margin: 50px 0px 0px 30px;
+    margin: 0;
     display: flex;
-    flex-direction: row; /* 使得選項垂直排列 */
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 15px; /* 為每個選項增加間距 */
-    padding: 20px; /* 增加內邊距 */
+    padding: 12px 16px;
     border-radius: 8px; /* 使篩選條的邊緣變得圓滑 */
     z-index: 100; /* 設置一個較高的層級確保它顯示在其他元素之上 */
-    background-color: transparent;
+    background-color: rgba(246, 241, 235, 0.92);
+    backdrop-filter: blur(4px);
   }
   
   .filter-bar label {
     font-size: 14px; /* 調整字體大小 */
     font-weight:400;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .filter-bar select{
-    margin-left: 10px; 
+
+  .apple-select {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-width: 132px;
+    max-width: 260px;
+  }
+
+  .apple-select select {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.52);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.28);
+    color: rgba(32, 33, 36, 0.9);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    font-size: 13px;
+    line-height: 1.2;
+    padding: 8px 34px 8px 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .apple-select select:hover {
+    border-color: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.36);
+  }
+
+  .apple-select select:focus {
+    border-color: rgba(80, 126, 255, 0.5);
+    box-shadow: 0 0 0 4px rgba(80, 126, 255, 0.14);
+    background: rgba(255, 255, 255, 0.42);
+  }
+
+  .apple-select-arrow {
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-80%);
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(37, 39, 44, 0.6);
+    pointer-events: none;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .filter-bar {
+      gap: 10px;
+      padding: 10px 12px;
+    }
+
+    .filter-bar label {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .apple-select {
+      max-width: 62%;
+      min-width: 160px;
+    }
+
+    .apple-select select {
+      font-size: 12px;
+      padding: 7px 30px 7px 11px;
+    }
   }
