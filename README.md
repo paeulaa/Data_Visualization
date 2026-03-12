@@ -1,6 +1,6 @@
 ## The Learning Ripple Effect of Chatbots
 
-The visualization is built with **React**, **D3.js**, **Python3**, and **SQLite**, combining full-stack data processing with an interactive frontend. The ripple pattern visually represents how students' engagement with AI grows and changes across different learning contexts.
+The visualization is built with **React**, **D3.js**, **Python3**, and **SQLite**, combining data processing with an interactive frontend. The ripple pattern visually represents how students' engagement with AI grows and changes across different learning contexts.
 
 ***
 
@@ -46,7 +46,7 @@ D3.js was used to draw the concentric circles, animate nodes, and handle interac
 ### How It Works
 
 <img src="client/images/note-1.png?raw=true"/>
-<br>
+
 - **Ripple Design**: Concentric circles represent levels of agreement (from "Strongly Disagree" to "Strongly Agree")
 - **Red Dots**: Each dot = a student response
 - **Glow Effects**: The glow size = how frequently the student uses AI tools ("Never" -> "Very Often")
