@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import * as d3 from 'd3';
 import '../css/mainPage.css';
 import { useNavigate } from 'react-router-dom';
@@ -6,28 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function MainPage({ hierarchyData, selectedDegree, selectedMajor, selectedGender }) {
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (hierarchyData) {
-            // 筛选数据
-            const filteredData = hierarchyData.children.map(cluster => {
-                return {
-                    ...cluster,
-                    children: cluster.children.filter(dataPoint =>
-                        (selectedDegree === 'All' || dataPoint.degree === selectedDegree) &&
-                        (selectedMajor === 'All' || dataPoint.major === selectedMajor) &&
-                        (selectedGender === 'All' || dataPoint.gender === selectedGender)
-                    )
-                };
-            }).filter(cluster => cluster.children.length > 0);
-
-            // 清空原有的 SVG 以便重新绘制
-            d3.select("#chart").selectAll("*").remove();
-
-            drawChart({ children: filteredData });
-        }
-    }, [selectedDegree, selectedMajor, selectedGender, hierarchyData]);
-
-    const drawChart = (data) => {
+    const drawChart = useCallback((data) => {
         d3.select("#chart").selectAll("*").remove();
 
         if (!data || !data.children) return;
@@ -205,7 +184,28 @@ function MainPage({ hierarchyData, selectedDegree, selectedMajor, selectedGender
                 .style("font-weight", "regular")
                 .text(clusterData.name);
         });
-    };
+    }, [navigate]);
+
+    useEffect(() => {
+        if (hierarchyData) {
+            // 筛选数据
+            const filteredData = hierarchyData.children.map(cluster => {
+                return {
+                    ...cluster,
+                    children: cluster.children.filter(dataPoint =>
+                        (selectedDegree === 'All' || dataPoint.degree === selectedDegree) &&
+                        (selectedMajor === 'All' || dataPoint.major === selectedMajor) &&
+                        (selectedGender === 'All' || dataPoint.gender === selectedGender)
+                    )
+                };
+            }).filter(cluster => cluster.children.length > 0);
+
+            // 清空原有的 SVG 以便重新绘制
+            d3.select("#chart").selectAll("*").remove();
+
+            drawChart({ children: filteredData });
+        }
+    }, [selectedDegree, selectedMajor, selectedGender, hierarchyData, drawChart]);
 
     return (
         <div className="style">

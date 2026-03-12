@@ -1,5 +1,5 @@
 // ClusterDetails.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as d3 from 'd3';
 import '../css/clusterDetail.css';
