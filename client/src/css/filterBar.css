@@ -1,0 +1,23 @@
+
+  
+.filter-bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    margin: 50px 0px 0px 30px;
+    display: flex;
+    flex-direction: row; /* 使得選項垂直排列 */
+    gap: 15px; /* 為每個選項增加間距 */
+    padding: 20px; /* 增加內邊距 */
+    border-radius: 8px; /* 使篩選條的邊緣變得圓滑 */
+    z-index: 100; /* 設置一個較高的層級確保它顯示在其他元素之上 */
+    background-color: transparent;
+  }
+  
+  .filter-bar label {
+    font-size: 14px; /* 調整字體大小 */
+    font-weight:400;
+  }
+  .filter-bar select{
+    margin-left: 10px; 
+  }

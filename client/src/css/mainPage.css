@@ -1,0 +1,29 @@
+#chart {
+    position:relative;
+    padding: 0px 0px 0px 40px;
+    margin: 0;
+    top:8%;
+    background-color: #F6F1EB;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+  }
+  
+  #tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 0px 8px 0px 8px;
+    font-size: 12px;
+    background: whitesmoke;
+    border: 1px solid #8e8e8e;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+  
+  .hidden {
+    display: none;
+  }
+
+
+  
